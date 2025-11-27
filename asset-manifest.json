@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/my-portfolio/static/css/main.a46cf9cc.css",
-    "main.js": "/my-portfolio/static/js/main.c514f87b.js",
-    "static/media/Edusity.png": "/my-portfolio/static/media/Edusity.24e4bfec1c62ac1f39ea.png",
-    "static/media/Real Estate.png": "/my-portfolio/static/media/Real Estate.720b7d5089ae5e3616eb.png",
-    "static/media/yolo.png": "/my-portfolio/static/media/yolo.aa8cab86b5090f0915fe.png",
-    "static/media/cifar.png": "/my-portfolio/static/media/cifar.102ec871d2fb41da67d9.png",
-    "static/media/Snake Game.png": "/my-portfolio/static/media/Snake Game.13b12469d1f00ab8ca0c.png",
-    "static/media/Face_mask.png": "/my-portfolio/static/media/Face_mask.3330a40950bd57948381.png",
-    "static/media/URL_Shortener.png": "/my-portfolio/static/media/URL_Shortener.401da222c0f3ff52c06a.png",
-    "static/media/Breast_cancer.webp": "/my-portfolio/static/media/Breast_cancer.fb5b7926d0b08f53c1e9.webp",
-    "static/media/tic_tac_toe.png": "/my-portfolio/static/media/tic_tac_toe.a23823237779a9aaa552.png",
-    "static/media/faceDetectionImg.jpg": "/my-portfolio/static/media/faceDetectionImg.9b1f13aec523c80c154d.jpg",
-    "static/media/Rock Paper scissor.png": "/my-portfolio/static/media/Rock Paper scissor.d55049c443c8eff57a33.png",
-    "static/media/Currency Converter.png": "/my-portfolio/static/media/Currency Converter.79a1fd14d1e9de655539.png",
-    "static/media/profile-pic.jpg": "/my-portfolio/static/media/profile-pic.7f29d981598fd3e01579.jpg",
-    "static/media/Mnist.jpg": "/my-portfolio/static/media/Mnist.729bd8b8063d95ab580f.jpg",
-    "index.html": "/my-portfolio/index.html",
-    "main.a46cf9cc.css.map": "/my-portfolio/static/css/main.a46cf9cc.css.map",
-    "main.c514f87b.js.map": "/my-portfolio/static/js/main.c514f87b.js.map"
+    "main.css": "/saffiullah1314/my-portfolio/static/css/main.a46cf9cc.css",
+    "main.js": "/saffiullah1314/my-portfolio/static/js/main.1d5fc8aa.js",
+    "static/media/Edusity.png": "/saffiullah1314/my-portfolio/static/media/Edusity.24e4bfec1c62ac1f39ea.png",
+    "static/media/Real Estate.png": "/saffiullah1314/my-portfolio/static/media/Real Estate.720b7d5089ae5e3616eb.png",
+    "static/media/yolo.png": "/saffiullah1314/my-portfolio/static/media/yolo.aa8cab86b5090f0915fe.png",
+    "static/media/cifar.png": "/saffiullah1314/my-portfolio/static/media/cifar.102ec871d2fb41da67d9.png",
+    "static/media/Snake Game.png": "/saffiullah1314/my-portfolio/static/media/Snake Game.13b12469d1f00ab8ca0c.png",
+    "static/media/Face_mask.png": "/saffiullah1314/my-portfolio/static/media/Face_mask.3330a40950bd57948381.png",
+    "static/media/URL_Shortener.png": "/saffiullah1314/my-portfolio/static/media/URL_Shortener.401da222c0f3ff52c06a.png",
+    "static/media/Breast_cancer.webp": "/saffiullah1314/my-portfolio/static/media/Breast_cancer.fb5b7926d0b08f53c1e9.webp",
+    "static/media/tic_tac_toe.png": "/saffiullah1314/my-portfolio/static/media/tic_tac_toe.a23823237779a9aaa552.png",
+    "static/media/faceDetectionImg.jpg": "/saffiullah1314/my-portfolio/static/media/faceDetectionImg.9b1f13aec523c80c154d.jpg",
+    "static/media/Rock Paper scissor.png": "/saffiullah1314/my-portfolio/static/media/Rock Paper scissor.d55049c443c8eff57a33.png",
+    "static/media/Currency Converter.png": "/saffiullah1314/my-portfolio/static/media/Currency Converter.79a1fd14d1e9de655539.png",
+    "static/media/profile-pic.jpg": "/saffiullah1314/my-portfolio/static/media/profile-pic.7f29d981598fd3e01579.jpg",
+    "static/media/Mnist.jpg": "/saffiullah1314/my-portfolio/static/media/Mnist.729bd8b8063d95ab580f.jpg",
+    "index.html": "/saffiullah1314/my-portfolio/index.html",
+    "main.a46cf9cc.css.map": "/saffiullah1314/my-portfolio/static/css/main.a46cf9cc.css.map",
+    "main.1d5fc8aa.js.map": "/saffiullah1314/my-portfolio/static/js/main.1d5fc8aa.js.map"
   },
   "entrypoints": [
     "static/css/main.a46cf9cc.css",
-    "static/js/main.c514f87b.js"
+    "static/js/main.1d5fc8aa.js"
   ]
 }
