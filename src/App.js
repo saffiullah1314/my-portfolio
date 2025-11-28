@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <BrowserRouter>
+      <BrowserRouter >
         <Navbar />
         <Body>
           <div>
