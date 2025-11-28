@@ -26,7 +26,7 @@ export const Bio = {
     "Passionate Software Engineering student skilled in MERN Stack Development and Artificial Intelligence. Over 1 year of hands-on experience building AI models and full-stack web applications using modern frameworks. Dedicated to creating intelligent, user-centered, and efficient digital solutions integrating deep learning with web technologies.",
   github: "https://github.com/saffiullah1314",
   resume:"https://drive.google.com/file/d/17fbhf3GRIwbPLxK_mAbyc3snlM1H1nZF/view",
-  linkedin: "www.linkedin.com/in/saffi-ullah-865819339",
+  linkedin: "https://www.linkedin.com/in/saffi-ullah-865819339/",
   insta: "https://www.instagram.com/saffiullah1314",
   facebook: "https://www.facebook.com/saffiullah1314/",
 };
