@@ -30,9 +30,16 @@ const Bio = {
   facebook: "https://www.facebook.com/saffiullah1314/",
 };
 
-mongoose.connect(process.env.MONGODB_URI).then(async () => {
+const seedDatabase = async () => {
   try {
-    // Clear existing data
+    const profileCount = await Profile.countDocuments();
+    if (profileCount > 0) {
+      console.log('✅ Database already seeded, skipping auto-seed.');
+      return;
+    }
+
+    console.log('🌱 Database is empty. Starting auto-seed...');
+    // Clear existing data (just in case of partial artifacts)
     await Profile.deleteMany();
     await Skill.deleteMany();
     await Project.deleteMany();
@@ -61,7 +68,7 @@ mongoose.connect(process.env.MONGODB_URI).then(async () => {
     await SocialLink.insertMany(socialLinks.filter(s => s.url));
     console.log('✅ Social Links seeded');
 
-    // 3. Skills (categories - keeping image URLs as-is from constants)
+    // 3. Skills
     const skillCategories = [
       {
         title: "Frontend",
@@ -117,7 +124,7 @@ mongoose.connect(process.env.MONGODB_URI).then(async () => {
     await Skill.insertMany(skillCategories);
     console.log('✅ Skills seeded');
 
-    // 4. Projects (using field names matching the DB model)
+    // 4. Projects
     const projectsData = [
       { title: "Face Mask Detection App", date: "2025", description: "Detects whether a person is wearing a mask or not using a CNN model trained on image data. Built with TensorFlow/Keras and integrated via Streamlit for real-time predictions.", image: "https://upload.wikimedia.org/wikipedia/commons/0/06/Sign_of_the_Horns_Emoji.png", tags: ["CNN", "TensorFlow", "Keras", "Streamlit", "Image Processing"], category: "machine learning", github: "https://github.com/saffiullah1314/face-mask-detection", webapp: "", order: 1 },
       { title: "CIFAR-10 Object Detection", date: "2025", description: "Trained and deployed a CNN model on the CIFAR-10 dataset with real-time image upload & prediction through Streamlit UI.", image: "https://upload.wikimedia.org/wikipedia/commons/0/06/Sign_of_the_Horns_Emoji.png", tags: ["CNN", "TensorFlow", "Keras", "Streamlit"], category: "machine learning", github: "https://github.com/saffiullah1314/CFIR", webapp: "https://cfir7z.streamlit.app/", order: 2 },
@@ -202,7 +209,7 @@ mongoose.connect(process.env.MONGODB_URI).then(async () => {
     await Education.insertMany(educationData);
     console.log('✅ Education seeded');
 
-    // 7. Learning (CampusX Deep Learning - Self-Learning)
+    // 7. Learning
     await Learning.create({
       title: 'Deep Learning (Self-Study)',
       provider: 'CampusX YouTube',
@@ -235,19 +242,24 @@ mongoose.connect(process.env.MONGODB_URI).then(async () => {
           password: process.env.ADMIN_PASSWORD
         });
         console.log('✅ Admin user created');
-      } else {
-        console.log('ℹ️  Admin already exists, skipping');
       }
     }
 
-    console.log('\n🎉 All data seeded successfully!\n');
-    process.exit();
+    console.log('\n🎉 Auto-seed completed successfully!\n');
   } catch (err) {
-    console.error('❌ Seeding error:', err);
-    process.exit(1);
+    console.error('❌ Auto-seeding error:', err);
   }
-}).catch(err => {
-  console.error('❌ MongoDB connection error:', err.message);
-  console.log('\n💡 Note: Make sure MongoDB is running and MONGODB_URI is correctly set in server/.env');
-  process.exit(1);
-});
+};
+
+module.exports = seedDatabase;
+
+// Support running directly via CLI (npm run seed)
+if (require.main === module) {
+  mongoose.connect(process.env.MONGODB_URI).then(async () => {
+    await seedDatabase();
+    process.exit(0);
+  }).catch(err => {
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1);
+  });
+}
