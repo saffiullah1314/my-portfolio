@@ -97,18 +97,30 @@ const CardContainer = styled.div`
 
 const ViewMoreButton = styled.button`
   margin-top: 36px;
-  padding: 12px 24px;
-  background: ${({ theme }) => theme.primary};
-  color: white;
-  border: none;
-  border-radius: 8px;
+  padding: 14px 32px;
+  background: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.black};
+  border: 2px solid ${({ theme }) => theme.white};
+  border-radius: 50px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 12px rgba(133, 76, 230, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: ${({ theme }) => theme.white};
+  }
+  
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
   }
 `;
 
