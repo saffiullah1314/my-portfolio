@@ -131,7 +131,7 @@ const AdminExperience = () => {
         </Table>
       </TableContainer>
 
-      <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', minWidth: 500 } }}>
+      <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', width: '100%', maxWidth: 600 } }}>
         <DialogTitle>{currentExp?._id ? 'Edit Experience' : 'Add Experience'}</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
           <TextField 

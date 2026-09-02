@@ -132,7 +132,7 @@ const AdminProjects = () => {
         </Table>
       </TableContainer>
 
-      <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', minWidth: 500 } }}>
+      <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', width: '100%', maxWidth: 600 } }}>
         <DialogTitle>{currentProject?._id ? 'Edit Project' : 'Add Project'}</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
           <TextField 

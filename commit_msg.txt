@@ -1,5 +1,4 @@
-style: fix hero role text overflow layout
+fix: resolve mobile overflow bugs in Admin Dialogs
 
-- Added `flex-wrap: wrap` to `TextLoop` to allow long roles to wrap cleanly
-- Wrapped "I am a" in a nowrap span so it doesn't break into multiple lines when the flex container shrinks
-- Centered the wrapped content nicely on mobile using `justify-content: center`
+- Replaced rigid `minWidth: 500` and `minWidth: 520` in all Admin Dialog components with responsive `width: '100%', maxWidth: 600`
+- This ensures that when adding new items (Projects, Experience, Education, Skills) on smaller screens or mobile devices, the popup dialog fits cleanly on the screen without causing horizontal overflow or breaking the layout
