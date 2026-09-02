@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import styled from "styled-components";
-import { education } from "../../data/constants";
+import api from "../../utils/api";
 import EducationCard from "../cards/EducationCard";
 import EarthCanvas from "../canvas/Earth";
+import { CircularProgress } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -50,6 +51,23 @@ const Desc = styled.div`
 `;
 
 const Education = () => {
+  const [education, setEducation] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEducation = async () => {
+      try {
+        const res = await api.get('/education');
+        setEducation(res.data.data);
+      } catch (error) {
+        console.error("Failed to fetch education", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEducation();
+  }, []);
+
   return (
     <Container id="Education">
       <Wrapper>
@@ -64,9 +82,13 @@ const Education = () => {
         </Desc>
 
         <VerticalTimeline>
-          {education.map((education, index) => (
-            <EducationCard key={`education-${index}`} education={education} />
-          ))}
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            education.map((edu, index) => (
+              <EducationCard key={`education-${index}`} education={edu} />
+            ))
+          )}
         </VerticalTimeline>
         <EarthCanvas />
       </Wrapper>
@@ -74,4 +96,4 @@ const Education = () => {
   );
 };
 
-export default Education;
+export default Education;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { skills } from "../../data/constants";
+import api from "../../utils/api";
 import { Tilt } from "react-tilt";
+import { CircularProgress } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -116,6 +117,23 @@ const SkillImage = styled.img`
 `;
 
 const Skills = () => {
+  const [skills, setSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const res = await api.get('/skills');
+        setSkills(res.data.data);
+      } catch (error) {
+        console.error("Failed to fetch skills", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSkills();
+  }, []);
+
   return (
     <Container id="Skills">
       <Wrapper>
@@ -130,25 +148,29 @@ const Skills = () => {
         </Desc>
 
         <SkillsContainer>
-          {skills.map((skill, index) => (
-            <Tilt>
-              <Skill key={`skill-${index}`}>
-                <SkillTitle>{skill.title}</SkillTitle>
-                <SkillList>
-                  {skill.skills.map((item, index_x) => (
-                    <SkillItem key={`skill-x-${index_x}`}>
-                      <SkillImage src={item.image} />
-                      {item.name}
-                    </SkillItem>
-                  ))}
-                </SkillList>
-              </Skill>
-            </Tilt>
-          ))}
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            skills.map((skill, index) => (
+              <Tilt key={`skill-${index}`}>
+                <Skill>
+                  <SkillTitle>{skill.title}</SkillTitle>
+                  <SkillList>
+                    {skill.skills.map((item, index_x) => (
+                      <SkillItem key={`skill-x-${index_x}`}>
+                        <SkillImage src={item.image} />
+                        {item.name}
+                      </SkillItem>
+                    ))}
+                  </SkillList>
+                </Skill>
+              </Tilt>
+            ))
+          )}
         </SkillsContainer>
       </Wrapper>
     </Container>
   );
 };
 
-export default Skills;
+export default Skills;

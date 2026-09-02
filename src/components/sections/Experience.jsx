@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import styled from "styled-components";
-import { experiences } from "../../data/constants";
+import api from "../../utils/api";
 import ExperienceCard from "../cards/ExperienceCard";
+import { CircularProgress } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -50,6 +51,23 @@ const Desc = styled.div`
 `;
 
 const Experience = () => {
+  const [experiences, setExperiences] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const res = await api.get('/experience');
+        setExperiences(res.data.data);
+      } catch (error) {
+        console.error("Failed to fetch experiences", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchExperiences();
+  }, []);
+
   return (
     <Container id="Experience">
       <Wrapper>
@@ -59,20 +77,24 @@ const Experience = () => {
             marginBottom: "40px",
           }}
         >
-          My work experience as a software engineer and working on  projects.
+          My work experience as a software engineer and working on projects.
         </Desc>
 
         <VerticalTimeline>
-          {experiences.map((experience, index) => (
-            <ExperienceCard
-              key={`experience-${index}`}
-              experience={experience}
-            />
-          ))}
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            experiences.map((experience, index) => (
+              <ExperienceCard
+                key={`experience-${index}`}
+                experience={experience}
+              />
+            ))
+          )}
         </VerticalTimeline>
       </Wrapper>
     </Container>
   );
 };
 
-export default Experience;
+export default Experience;

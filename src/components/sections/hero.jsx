@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Bio } from "../../data/constants";
+import api from "../../utils/api";
 import Typewriter from "typewriter-effect";
 import HeroImg from "../../images/profile-pic.jpg";
 import HeroBgAnimation from "../HeroBgAnimation";
@@ -216,6 +216,27 @@ const HeroBg = styled.div`
 `;
 
 const Hero = () => {
+  const [bio, setBio] = useState({
+    name: "Saffi Ullah",
+    roles: ["Full Stack Developer", "ML/AI Engineer"],
+    description: "Passionate Software Engineering student skilled in MERN Stack Development and Artificial Intelligence.",
+    resume: "https://drive.google.com/file/d/17fbhf3GRIwbPLxK_mAbyc3snlM1H1nZF/view"
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await api.get('/profile');
+        if (res.data.data && res.data.data.length > 0) {
+          setBio(res.data.data[0]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile, using defaults", error);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   return (
     <div id="About">
       <HeroContainer>
@@ -228,14 +249,14 @@ const Hero = () => {
             <HeroLeftContainer>
               <motion.div {...headTextAnimation}>
                 <Title>
-                  Hi, I am <br /> {Bio.name}
+                  Hi, I am <br /> {bio.name}
                 </Title>
                 <TextLoop>
                   I am a
                   <Span>
                     <Typewriter
                       options={{
-                        strings: Bio.roles,
+                        strings: bio.roles,
                         autoStart: true,
                         loop: true,
                       }}
@@ -245,10 +266,10 @@ const Hero = () => {
               </motion.div>
 
               <motion.div {...headContentAnimation}>
-                <SubTitle>{Bio.description}</SubTitle>
+                <SubTitle>{bio.description}</SubTitle>
               </motion.div>
 
-              <ResumeButton href={Bio.resume} target="_blank">
+              <ResumeButton href={bio.resume} target="_blank">
                 Check Resume
               </ResumeButton>
             </HeroLeftContainer>

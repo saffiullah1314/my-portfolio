@@ -1,10 +1,8 @@
-// Updated Projects component with updated ProjectCard including two buttons
-// NOTE: This assumes you will update ProjectCard component as well.
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { projects } from "../../data/constants";
+import api from "../../utils/api";
 import ProjectCard from "../cards/ProjectCard";
+import { CircularProgress } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -99,6 +97,22 @@ const CardContainer = styled.div`
 
 const Projects = () => {
   const [toggle, setToggle] = useState("all");
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await api.get('/projects');
+        setProjects(res.data.data);
+      } catch (error) {
+        console.error("Failed to fetch projects", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   return (
     <Container id="Projects">
@@ -123,11 +137,15 @@ const Projects = () => {
         </ToggleButtonGroup>
 
         <CardContainer>
-          {projects
-            .filter((item) => toggle === "all" || item.category === toggle)
-            .map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            projects
+              .filter((item) => toggle === "all" || item.category === toggle)
+              .map((project) => (
+                <ProjectCard key={project._id} project={project} />
+              ))
+          )}
         </CardContainer>
       </Wrapper>
     </Container>

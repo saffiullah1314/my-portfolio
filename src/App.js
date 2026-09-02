@@ -1,7 +1,7 @@
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme } from "./utils/Themes";
 import Navbar from "./components/Navbar";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Hero from "./components/sections/hero";
 import Skills from "./components/sections/Skills";
 import Experience from "./components/sections/Experience";
@@ -9,6 +9,20 @@ import Education from "./components/sections/Education";
 import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/sections/Footer";
+
+import { AuthProvider } from "./context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import ProtectedRoute from "./components/admin/ProtectedRoute";
+import Login from "./components/admin/Login";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminProfile from "./components/admin/AdminProfile";
+import AdminSkills from "./components/admin/AdminSkills";
+import AdminEducation from "./components/admin/AdminEducation";
+import AdminSocial from "./components/admin/AdminSocial";
+import AdminLearning from "./components/admin/AdminLearning";
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -36,22 +50,48 @@ const Wrapper = styled.div`
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-        <Navbar />
-        <Body>
-          <div>
-            <Hero />
-            <Wrapper>
-              <Skills />
-              <Experience />
-            </Wrapper>
-            <Projects />
-            <Wrapper>
-              <Education />
-              <Contact />
-            </Wrapper>
-            <Footer />
-          </div>
-        </Body>
+      <AuthProvider>
+        <ToastContainer theme="dark" />
+        <Routes>
+          {/* Public Portfolio Route */}
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <Body>
+                <div>
+                  <Hero />
+                  <Wrapper>
+                    <Skills />
+                    <Experience />
+                  </Wrapper>
+                  <Projects />
+                  <Wrapper>
+                    <Education />
+                    <Contact />
+                  </Wrapper>
+                  <Footer />
+                </div>
+              </Body>
+            </>
+          } />
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<Login />} />
+          
+          <Route path="/admin" element={<ProtectedRoute />}>
+            <Route element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="profile" element={<AdminProfile />} />
+              <Route path="skills" element={<AdminSkills />} />
+              <Route path="projects" element={<AdminProjects />} />
+              <Route path="experience" element={<AdminExperience />} />
+              <Route path="education" element={<AdminEducation />} />
+              <Route path="social" element={<AdminSocial />} />
+              <Route path="learning" element={<AdminLearning />} />
+            </Route>
+          </Route>
+        </Routes>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
