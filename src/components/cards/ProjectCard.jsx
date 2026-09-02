@@ -3,20 +3,22 @@ import styled from "styled-components";
 
 const Card = styled.div`
   width: 330px;
-  height: 520px;
+  min-height: 500px;
+  height: auto;
   background-color: ${({ theme }) => theme.card};
-  border-radius: 10px;
-  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   padding: 26px 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   transition: all 0.4s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 40px 4px rgba(0, 0, 0, 0.6);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
     filter: brightness(1.05);
   }
 `;
@@ -25,9 +27,9 @@ const Image = styled.img`
   width: 100%;
   height: 180px;
   object-fit: cover;
-  background-color: ${({ theme }) => theme.white};
-  border-radius: 10px;
-  box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
+  background-color: ${({ theme }) => theme.card_light};
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 `;
 
 const Tags = styled.div`
@@ -42,14 +44,14 @@ const Details = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   padding: 0px 2px;
 `;
 
 const Title = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.text_secondary};
+  font-size: 22px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text_primary || '#fff'};
   display: -webkit-box;
   -webkit-line-clamp: 2;
   overflow: hidden;
@@ -58,52 +60,65 @@ const Title = styled.div`
 `;
 
 const Date = styled.div`
-  font-size: 12px;
-  color: ${({ theme }) => theme.text_secondary + 80};
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text_secondary};
+  opacity: 0.8;
 `;
 
 const Description = styled.div`
   color: ${({ theme }) => theme.text_secondary};
-  margin-top: 8px;
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
 `;
 
-
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 12px;
   margin-top: auto;
+  padding-top: 16px;
 `;
 
 const Button = styled.a`
   flex: 1;
-  padding: 10px 0;
-  background: ${({ theme }) => theme.primary + '33'};
-  color: ${({ theme }) => theme.primary};
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.05);
+  color: ${({ theme }) => theme.text_primary || '#fff'};
   font-weight: 600;
   text-align: center;
   border-radius: 8px;
   text-decoration: none;
-  transition: 0.3s ease;
-  border: 1px solid white;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
 
   &:hover {
     background: ${({ theme }) => theme.primary};
-    color: white;
+    color: ${({ theme }) => theme.bg || '#000'};
+    border-color: ${({ theme }) => theme.primary};
+    transform: translateY(-2px);
   }
 `;
 
 const Tag = styled.span`
   font-size: 12px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.primary + '15'};
-  padding: 2px 8px;
-  border-radius: 10px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text_primary || '#fff'};
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
 `;
 
 const ProjectCard = ({ project }) => {
