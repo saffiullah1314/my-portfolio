@@ -95,10 +95,28 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+const ViewMoreButton = styled.button`
+  margin-top: 36px;
+  padding: 12px 24px;
+  background: ${({ theme }) => theme.primary};
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(133, 76, 230, 0.4);
+  }
+`;
+
 const Projects = () => {
   const [toggle, setToggle] = useState("all");
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -114,6 +132,9 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
+  const filteredProjects = projects.filter((item) => toggle === "all" || item.category === toggle);
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 3);
+
   return (
     <Container id="Projects">
       <Wrapper>
@@ -123,15 +144,15 @@ const Projects = () => {
         </Desc>
 
         <ToggleButtonGroup>
-          <ToggleButton active={toggle === "all"} onClick={() => setToggle("all")}>
+          <ToggleButton active={toggle === "all"} onClick={() => { setToggle("all"); setShowAll(false); }}>
             ALL
           </ToggleButton>
           <Divider />
-          <ToggleButton active={toggle === "web app"} onClick={() => setToggle("web app")}>
+          <ToggleButton active={toggle === "web app"} onClick={() => { setToggle("web app"); setShowAll(false); }}>
             WEB APP'S
           </ToggleButton>
           <Divider />
-          <ToggleButton active={toggle === "machine learning"} onClick={() => setToggle("machine learning")}>
+          <ToggleButton active={toggle === "machine learning"} onClick={() => { setToggle("machine learning"); setShowAll(false); }}>
             MACHINE LEARNING
           </ToggleButton>
         </ToggleButtonGroup>
@@ -140,13 +161,17 @@ const Projects = () => {
           {loading ? (
             <CircularProgress />
           ) : (
-            projects
-              .filter((item) => toggle === "all" || item.category === toggle)
-              .map((project) => (
-                <ProjectCard key={project._id} project={project} />
-              ))
+            displayedProjects.map((project) => (
+              <ProjectCard key={project._id} project={project} />
+            ))
           )}
         </CardContainer>
+        
+        {!loading && filteredProjects.length > 3 && (
+          <ViewMoreButton onClick={() => setShowAll(!showAll)}>
+            {showAll ? "View Less" : "View More"}
+          </ViewMoreButton>
+        )}
       </Wrapper>
     </Container>
   );
