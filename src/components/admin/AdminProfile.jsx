@@ -5,13 +5,14 @@ import {
 } from '@mui/material';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';
+import ImageUpload from './ImageUpload';
 
 const AdminProfile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
-    name: '', description: '', resume: '', roles: ''
+    name: '', description: '', resume: '', roles: '', image: ''
   });
 
   useEffect(() => {
@@ -28,7 +29,8 @@ const AdminProfile = () => {
           name: p.name || '',
           description: p.description || '',
           resume: p.resume || '',
-          roles: Array.isArray(p.roles) ? p.roles.join(', ') : (p.roles || '')
+          roles: Array.isArray(p.roles) ? p.roles.join(', ') : (p.roles || ''),
+          image: p.image || ''
         });
       }
     } catch (err) {
@@ -95,6 +97,14 @@ const AdminProfile = () => {
               InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
               InputProps={{ style: { color: 'white' } }}
               sx={{ '& .MuiOutlinedInput-root fieldset': { borderColor: '#444' } }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <ImageUpload 
+              label="Profile Image" 
+              name="image" 
+              value={form.image} 
+              onChange={handleChange} 
             />
           </Grid>
           <Grid item xs={12}>

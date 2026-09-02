@@ -1,4 +1,8 @@
-fix: resolve all ESLint warnings to fix Vercel production build
+feat: implement unified Cloudinary image uploads across Admin panel
 
-- Removed unused imports in App.js, AdminLayout.jsx, AdminProfile.jsx, and AdminSkills.jsx
-- Fixed useEffect missing dependency warning in Footer.jsx using functional state updater
+- Added `/api/upload` endpoint in backend using multer and Cloudinary
+- Created unified `ImageUpload.jsx` React component that accepts both manual URL links and direct file uploads
+- Added `image` property to Experience, Education, and Profile database models
+- Overhauled AdminProjects, AdminExperience, AdminEducation, AdminProfile to use the new ImageUpload component
+- Completely rewrote AdminSkills to use dynamic per-skill mapping with ImageUpload instead of string splitting
+- Updated Hero, ExperienceCard, and EducationCard to dynamically render the new image fields

@@ -47,6 +47,7 @@ app.use('/api/education', require('./routes/education'));
 app.use('/api/learning', require('./routes/learning'));
 app.use('/api/social-links', require('./routes/socialLinks'));
 app.use('/api/profile', require('./routes/profile'));
+app.use('/api/upload', require('./routes/upload'));
 
 // Health check
 app.get('/api/health', (req, res) => res.status(200).json({ success: true, message: 'Server is running' }));

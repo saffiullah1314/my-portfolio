@@ -10,6 +10,10 @@ const EducationSchema = new mongoose.Schema({
     required: [true, 'Please add a date range']
   },
   grade: {
+    type: String,
+    required: [true, 'Please add a grade/score']
+  },
+  image: {
     type: String
   },
   desc: {

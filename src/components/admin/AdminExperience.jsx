@@ -8,6 +8,7 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';
+import ImageUpload from './ImageUpload';
 
 const AdminExperience = () => {
   const [experiences, setExperiences] = useState([]);
@@ -33,7 +34,7 @@ const AdminExperience = () => {
 
   const handleOpen = (exp = null) => {
     setCurrentExp(exp || {
-      role: '', company: '', date: '', desc: '', skills: '', visible: true
+      role: '', company: '', date: '', desc: '', skills: '', image: '', visible: true
     });
     setOpen(true);
   };
@@ -102,6 +103,7 @@ const AdminExperience = () => {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell sx={{ color: 'white' }}>Logo</TableCell>
               <TableCell sx={{ color: 'white' }}>Role</TableCell>
               <TableCell sx={{ color: 'white' }}>Company</TableCell>
               <TableCell sx={{ color: 'white' }}>Date</TableCell>
@@ -112,6 +114,9 @@ const AdminExperience = () => {
           <TableBody>
             {experiences.map((row) => (
               <TableRow key={row._id}>
+                <TableCell>
+                  <img src={row.image} alt={row.company} style={{ width: 40, height: 40, borderRadius: 4, objectFit: 'cover' }} />
+                </TableCell>
                 <TableCell sx={{ color: 'white' }}>{row.role}</TableCell>
                 <TableCell sx={{ color: 'white' }}>{row.company}</TableCell>
                 <TableCell sx={{ color: 'white' }}>{row.date}</TableCell>
@@ -138,6 +143,12 @@ const AdminExperience = () => {
             label="Company" name="company" value={currentExp?.company || ''} onChange={handleChange} 
             fullWidth InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }} 
             InputProps={{ style: { color: 'white' } }} 
+          />
+          <ImageUpload 
+            label="Company Logo" 
+            name="image" 
+            value={currentExp?.image || ''} 
+            onChange={handleChange} 
           />
           <TextField 
             label="Date (e.g. June 2023 - Present)" name="date" value={currentExp?.date || ''} onChange={handleChange} 

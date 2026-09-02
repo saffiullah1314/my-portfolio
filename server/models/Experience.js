@@ -20,6 +20,9 @@ const ExperienceSchema = new mongoose.Schema({
   skills: {
     type: [String]
   },
+  image: {
+    type: String
+  },
   doc: {
     type: String // URL to a document/certificate
   },

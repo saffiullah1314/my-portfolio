@@ -16,6 +16,9 @@ const ProfileSchema = new mongoose.Schema({
   resume: {
     type: String
   },
+  image: {
+    type: String
+  },
   updatedAt: {
     type: Date,
     default: Date.now

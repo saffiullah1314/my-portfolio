@@ -8,6 +8,7 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';
+import ImageUpload from './ImageUpload';
 
 const AdminSkills = () => {
   const [skillCategories, setSkillCategories] = useState([]);
@@ -29,10 +30,25 @@ const AdminSkills = () => {
 
   const handleOpen = (item = null) => {
     setCurrent(item
-      ? { ...item, skillsText: item.skills.map(s => `${s.name}|${s.image}`).join('\n') }
-      : { title: '', skillsText: '', order: 0 }
+      ? { ...item, skills: item.skills.map(s => ({ ...s })) }
+      : { title: '', skills: [], order: 0 }
     );
     setOpen(true);
+  };
+
+  const handleSkillChange = (index, field, value) => {
+    const updatedSkills = [...current.skills];
+    updatedSkills[index][field] = value;
+    setCurrent({ ...current, skills: updatedSkills });
+  };
+
+  const addSkill = () => {
+    setCurrent({ ...current, skills: [...current.skills, { name: '', image: '', order: current.skills.length + 1 }] });
+  };
+
+  const removeSkill = (index) => {
+    const updatedSkills = current.skills.filter((_, i) => i !== index);
+    setCurrent({ ...current, skills: updatedSkills });
   };
 
   const handleChange = (e) => {
@@ -41,17 +57,9 @@ const AdminSkills = () => {
 
   const handleSubmit = async () => {
     setSaving(true);
-    const skillsList = current.skillsText
-      .split('\n')
-      .filter(line => line.includes('|'))
-      .map((line, i) => {
-        const [name, image] = line.split('|');
-        return { name: name.trim(), image: image.trim(), order: i + 1 };
-      });
-
     const payload = {
       title: current.title,
-      skills: skillsList,
+      skills: current.skills.filter(s => s.name.trim()), // Filter out empty skills
       order: parseInt(current.order) || 0
     };
 
@@ -136,15 +144,37 @@ const AdminSkills = () => {
             InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
             InputProps={{ style: { color: 'white' } }}
           />
-          <TextField
-            label="Skills (one per line: Name|ImageURL)"
-            name="skillsText" value={current?.skillsText || ''} onChange={handleChange}
-            fullWidth multiline rows={10}
-            InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
-            InputProps={{ style: { color: 'white', fontFamily: 'monospace', fontSize: '12px' } }}
-            helperText="Format: SkillName|https://image-url.png  — one per line"
-            FormHelperTextProps={{ style: { color: 'rgba(255,255,255,0.5)' } }}
-          />
+          <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Typography sx={{ color: 'white' }}>Skills</Typography>
+              <Button size="small" variant="outlined" onClick={addSkill} sx={{ color: '#854CE6', borderColor: '#854CE6' }}>+ Add Skill</Button>
+            </Box>
+            
+            {current?.skills?.map((skill, index) => (
+              <Box key={index} sx={{ display: 'flex', gap: 2, alignItems: 'flex-start', bgcolor: 'rgba(255,255,255,0.02)', p: 2, borderRadius: 1 }}>
+                <TextField
+                  label="Skill Name"
+                  value={skill.name}
+                  onChange={(e) => handleSkillChange(index, 'name', e.target.value)}
+                  sx={{ minWidth: '150px' }}
+                  InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+                  InputProps={{ style: { color: 'white' } }}
+                />
+                <ImageUpload 
+                  label="Skill Icon"
+                  name={`skill-image-${index}`}
+                  value={skill.image}
+                  onChange={(e) => handleSkillChange(index, 'image', e.target.value)}
+                />
+                <IconButton onClick={() => removeSkill(index)} sx={{ color: '#ef476f', mt: 1 }}>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            ))}
+            {current?.skills?.length === 0 && (
+              <Typography sx={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', py: 2 }}>No skills added yet.</Typography>
+            )}
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} sx={{ color: 'white' }}>Cancel</Button>

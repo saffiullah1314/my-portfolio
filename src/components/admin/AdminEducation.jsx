@@ -8,6 +8,7 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';
+import ImageUpload from './ImageUpload';
 
 const AdminEducation = () => {
   const [education, setEducation] = useState([]);
@@ -28,7 +29,7 @@ const AdminEducation = () => {
   };
 
   const handleOpen = (item = null) => {
-    setCurrent(item || { school: '', degree: '', date: '', grade: '', desc: '', visible: true });
+    setCurrent(item || { school: '', degree: '', date: '', grade: '', desc: '', image: '', visible: true });
     setOpen(true);
   };
 
@@ -78,7 +79,7 @@ const AdminEducation = () => {
         <Table>
           <TableHead>
             <TableRow>
-              {['Degree', 'School', 'Date', 'Grade', 'Visible', 'Actions'].map(h => (
+              {['Logo', 'Degree', 'School', 'Date', 'Grade', 'Visible', 'Actions'].map(h => (
                 <TableCell key={h} sx={{ color: 'white' }}>{h}</TableCell>
               ))}
             </TableRow>
@@ -86,6 +87,9 @@ const AdminEducation = () => {
           <TableBody>
             {education.map((row) => (
               <TableRow key={row._id}>
+                <TableCell>
+                  <img src={row.image} alt={row.school} style={{ width: 40, height: 40, borderRadius: 4, objectFit: 'cover' }} />
+                </TableCell>
                 <TableCell sx={{ color: 'white' }}>{row.degree}</TableCell>
                 <TableCell sx={{ color: 'white' }}>{row.school}</TableCell>
                 <TableCell sx={{ color: 'white' }}>{row.date}</TableCell>
@@ -116,6 +120,12 @@ const AdminEducation = () => {
               InputProps={{ style: { color: 'white' } }}
             />
           ))}
+          <ImageUpload 
+            label="School Logo" 
+            name="image" 
+            value={current?.image || ''} 
+            onChange={handleChange} 
+          />
           <TextField
             label="Description" name="desc" value={current?.desc || ''} onChange={handleChange}
             fullWidth multiline rows={4}

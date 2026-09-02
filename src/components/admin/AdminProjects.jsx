@@ -8,13 +8,13 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';
+import ImageUpload from './ImageUpload';
 
 const AdminProjects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState(null);
-  const [file, setFile] = useState(null);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -35,9 +35,8 @@ const AdminProjects = () => {
   const handleOpen = (project = null) => {
     setCurrentProject(project || {
       title: '', description: '', tags: '', category: 'web app',
-      github: '', webapp: '', visible: true, featured: false
+      github: '', webapp: '', image: '', visible: true, featured: false
     });
-    setFile(null);
     setOpen(true);
   };
 
@@ -56,24 +55,19 @@ const AdminProjects = () => {
 
   const handleSubmit = async () => {
     setSaving(true);
-    const formData = new FormData();
-    Object.keys(currentProject).forEach(key => {
-      if (key === 'tags' && Array.isArray(currentProject[key])) {
-        formData.append(key, currentProject[key].join(', '));
-      } else if (currentProject[key] !== undefined && currentProject[key] !== null) {
-        formData.append(key, currentProject[key]);
-      }
-    });
-    if (file) {
-      formData.append('image', file);
+    
+    // Create JSON payload
+    const payload = { ...currentProject };
+    if (Array.isArray(payload.tags)) {
+      payload.tags = payload.tags.join(', ');
     }
 
     try {
       if (currentProject._id) {
-        await api.put(`/projects/${currentProject._id}`, formData);
+        await api.put(`/projects/${currentProject._id}`, payload);
         toast.success('Project updated');
       } else {
-        await api.post('/projects', formData);
+        await api.post('/projects', payload);
         toast.success('Project created');
       }
       fetchProjects();
@@ -173,15 +167,12 @@ const AdminProjects = () => {
             fullWidth InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }} 
             InputProps={{ style: { color: 'white' } }} 
           />
-          
-          <Box display="flex" alignItems="center" gap={2}>
-            <Button variant="outlined" component="label" sx={{ color: '#854CE6', borderColor: '#854CE6' }}>
-              Upload Image
-              <input type="file" hidden accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
-            </Button>
-            {file && <Typography variant="caption">{file.name}</Typography>}
-            {!file && currentProject?.image && <Typography variant="caption">Using existing image</Typography>}
-          </Box>
+          <ImageUpload 
+            label="Project Image" 
+            name="image" 
+            value={currentProject?.image || ''} 
+            onChange={handleChange} 
+          />
 
           <Box display="flex" alignItems="center">
             <Typography>Visible</Typography>
