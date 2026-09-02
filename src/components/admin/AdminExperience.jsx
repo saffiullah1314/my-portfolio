@@ -131,6 +131,12 @@ const AdminExperience = () => {
         </Table>
       </TableContainer>
 
+      <Box display="flex" justifyContent="center" mt={3}>
+        <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpen()} sx={{ bgcolor: '#854CE6', px: 4, py: 1.5, fontSize: '16px' }}>
+          + Add New Experience
+        </Button>
+      </Box>
+
       <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', width: '100%', maxWidth: 600 } }}>
         <DialogTitle>{currentExp?._id ? 'Edit Experience' : 'Add Experience'}</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>

@@ -130,6 +130,12 @@ const AdminSkills = () => {
         </Table>
       </TableContainer>
 
+      <Box display="flex" justifyContent="center" mt={3}>
+        <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpen()} sx={{ bgcolor: '#854CE6', px: 4, py: 1.5, fontSize: '16px' }}>
+          + Add New Category
+        </Button>
+      </Box>
+
       <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', width: '100%', maxWidth: 600 } }}>
         <DialogTitle>{current?._id ? 'Edit Skill Category' : 'Add Skill Category'}</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>

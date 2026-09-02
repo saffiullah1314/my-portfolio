@@ -105,6 +105,12 @@ const AdminEducation = () => {
         </Table>
       </TableContainer>
 
+      <Box display="flex" justifyContent="center" mt={3}>
+        <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpen()} sx={{ bgcolor: '#854CE6', px: 4, py: 1.5, fontSize: '16px' }}>
+          + Add New Education
+        </Button>
+      </Box>
+
       <Dialog open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { bgcolor: '#22223b', color: 'white', width: '100%', maxWidth: 600 } }}>
         <DialogTitle>{current?._id ? 'Edit Education' : 'Add Education'}</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
