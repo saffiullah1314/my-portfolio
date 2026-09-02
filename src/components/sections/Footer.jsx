@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Bio } from "../../data/constants";
+import api from "../../utils/api";
 import {
   FacebookRounded,
   GitHub,
@@ -81,6 +81,32 @@ const Copyright = styled.p`
 `;
 
 const Footer = () => {
+  const [socials, setSocials] = useState({
+    facebook: "https://www.facebook.com/saffiullah1314/",
+    github: "https://github.com/saffiullah1314",
+    linkedin: "https://www.linkedin.com/in/saffi-ullah-865819339/",
+    insta: "https://www.instagram.com/saffiullah1314"
+  });
+
+  useEffect(() => {
+    const fetchSocials = async () => {
+      try {
+        const res = await api.get('/social-links');
+        const links = res.data.data;
+        const newSocials = { ...socials };
+        links.forEach(link => {
+          if (link.platform && link.url) {
+            newSocials[link.platform] = link.url;
+          }
+        });
+        setSocials(newSocials);
+      } catch (err) {
+        console.error("Failed to fetch social links", err);
+      }
+    };
+    fetchSocials();
+  }, []);
+
   return (
     <FooterContainer>
       <FooterWrapper>
@@ -93,20 +119,28 @@ const Footer = () => {
           <NavLink href="#Education">Education</NavLink>
         </Nav>
         <SocialMediaIcons>
-          <SocialMediaIcon href={Bio.facebook} target="display">
-            <FacebookRounded />
-          </SocialMediaIcon>
-          <SocialMediaIcon href={Bio.github} target="display">
-            <GitHub />
-          </SocialMediaIcon>          
-          <SocialMediaIcon href={Bio.linkedin} target="display">
-            <LinkedIn />
-          </SocialMediaIcon>
-          <SocialMediaIcon href={Bio.insta} target="display">
-            <Instagram />
-          </SocialMediaIcon>
+          {socials.facebook && (
+            <SocialMediaIcon href={socials.facebook} target="display">
+              <FacebookRounded />
+            </SocialMediaIcon>
+          )}
+          {socials.github && (
+            <SocialMediaIcon href={socials.github} target="display">
+              <GitHub />
+            </SocialMediaIcon>          
+          )}
+          {socials.linkedin && (
+            <SocialMediaIcon href={socials.linkedin} target="display">
+              <LinkedIn />
+            </SocialMediaIcon>
+          )}
+          {socials.insta && (
+            <SocialMediaIcon href={socials.insta} target="display">
+              <Instagram />
+            </SocialMediaIcon>
+          )}
         </SocialMediaIcons>
-        <Copyright>&copy; 2025 Saffi Ullah. All rights reserved.</Copyright>
+        <Copyright>&copy; {new Date().getFullYear()} Saffi Ullah. All rights reserved.</Copyright>
       </FooterWrapper>
     </FooterContainer>
   );

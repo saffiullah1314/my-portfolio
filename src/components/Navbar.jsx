@@ -1,8 +1,7 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as LinkR } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
-import { Bio } from "../data/constants";
+import api from "../utils/api";
 import { MenuRounded } from "@mui/icons-material";
 
 const Nav = styled.div`
@@ -130,6 +129,23 @@ const MobileMenu = styled.ul`
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
+  const [githubUrl, setGithubUrl] = useState("https://github.com/saffiullah1314");
+
+  useEffect(() => {
+    const fetchSocials = async () => {
+      try {
+        const res = await api.get('/social-links');
+        const github = res.data.data.find(link => link.platform === 'github');
+        if (github && github.url) {
+          setGithubUrl(github.url);
+        }
+      } catch (err) {
+        console.error("Failed to fetch social links", err);
+      }
+    };
+    fetchSocials();
+  }, []);
+
   return (
     <Nav>
       <NavbarContainer>
@@ -165,7 +181,7 @@ const Navbar = () => {
               Education
             </NavLink>
             <GithubButton
-              href={Bio.github}
+              href={githubUrl}
               target="_Blank"
               style={{
                 background: theme.primary,
@@ -178,7 +194,7 @@ const Navbar = () => {
         )}
 
         <ButtonContainer>
-          <GithubButton href={Bio.github} target="_Blank">
+          <GithubButton href={githubUrl} target="_Blank">
             Github Profile
           </GithubButton>
         </ButtonContainer>

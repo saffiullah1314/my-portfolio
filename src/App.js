@@ -23,6 +23,8 @@ import AdminSkills from "./components/admin/AdminSkills";
 import AdminEducation from "./components/admin/AdminEducation";
 import AdminSocial from "./components/admin/AdminSocial";
 import AdminLearning from "./components/admin/AdminLearning";
+import AdminProjects from "./components/admin/AdminProjects";
+import AdminExperience from "./components/admin/AdminExperience";
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};

@@ -1,0 +1,5 @@
+fix: resolve missing imports and make social links dynamic
+
+- Add missing AdminProjects and AdminExperience imports to App.js
+- Refactor Navbar.jsx and Footer.jsx to fetch social links from the API instead of using static constants
+- Delete temporary DB test files
