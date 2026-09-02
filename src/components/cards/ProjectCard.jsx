@@ -88,21 +88,31 @@ const ButtonWrapper = styled.div`
 const Button = styled.a`
   flex: 1;
   padding: 12px 0;
-  background: rgba(255, 255, 255, 0.05);
-  color: ${({ theme }) => theme.text_primary || '#fff'};
-  font-weight: 600;
-  text-align: center;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: ${({ theme }) => theme.white || '#fff'};
+  color: ${({ theme }) => theme.black || '#000'};
+  border: 2px solid ${({ theme }) => theme.white || '#fff'};
+  border-radius: 50px;
   font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    background: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.bg || '#000'};
-    border-color: ${({ theme }) => theme.primary};
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 25px rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: ${({ theme }) => theme.white || '#fff'};
+  }
+  
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
   }
 `;
 
