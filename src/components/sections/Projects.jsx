@@ -144,7 +144,9 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  const filteredProjects = projects.filter((item) => toggle === "all" || item.category === toggle);
+  const uniqueCategories = ["all", ...new Set(projects.map(p => p.category?.toLowerCase()).filter(Boolean))];
+  
+  const filteredProjects = projects.filter((item) => toggle === "all" || item.category?.toLowerCase() === toggle);
   const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 3);
 
   return (
@@ -156,17 +158,17 @@ const Projects = () => {
         </Desc>
 
         <ToggleButtonGroup>
-          <ToggleButton active={toggle === "all"} onClick={() => { setToggle("all"); setShowAll(false); }}>
-            ALL
-          </ToggleButton>
-          <Divider />
-          <ToggleButton active={toggle === "web app"} onClick={() => { setToggle("web app"); setShowAll(false); }}>
-            WEB APP'S
-          </ToggleButton>
-          <Divider />
-          <ToggleButton active={toggle === "machine learning"} onClick={() => { setToggle("machine learning"); setShowAll(false); }}>
-            MACHINE LEARNING
-          </ToggleButton>
+          {uniqueCategories.map((category, index) => (
+            <React.Fragment key={category}>
+              <ToggleButton 
+                active={toggle === category} 
+                onClick={() => { setToggle(category); setShowAll(false); }}
+              >
+                {category === 'all' ? 'ALL' : category.toUpperCase()}
+              </ToggleButton>
+              {index !== uniqueCategories.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
         </ToggleButtonGroup>
 
         <CardContainer>
