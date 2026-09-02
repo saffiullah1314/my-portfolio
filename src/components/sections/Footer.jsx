@@ -93,13 +93,15 @@ const Footer = () => {
       try {
         const res = await api.get('/social-links');
         const links = res.data.data;
-        const newSocials = { ...socials };
-        links.forEach(link => {
-          if (link.platform && link.url) {
-            newSocials[link.platform] = link.url;
-          }
+        setSocials((prev) => {
+          const newSocials = { ...prev };
+          links.forEach(link => {
+            if (link.platform && link.url) {
+              newSocials[link.platform] = link.url;
+            }
+          });
+          return newSocials;
         });
-        setSocials(newSocials);
       } catch (err) {
         console.error("Failed to fetch social links", err);
       }

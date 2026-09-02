@@ -17,7 +17,6 @@ import {
 import {
   Dashboard as DashboardIcon,
   Person as PersonIcon,
-  Info as InfoIcon,
   Build as BuildIcon,
   Work as WorkIcon,
   School as SchoolIcon,

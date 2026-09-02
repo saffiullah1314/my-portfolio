@@ -1,5 +1,4 @@
-fix: resolve missing imports and make social links dynamic
+fix: resolve all ESLint warnings to fix Vercel production build
 
-- Add missing AdminProjects and AdminExperience imports to App.js
-- Refactor Navbar.jsx and Footer.jsx to fetch social links from the API instead of using static constants
-- Delete temporary DB test files
+- Removed unused imports in App.js, AdminLayout.jsx, AdminProfile.jsx, and AdminSkills.jsx
+- Fixed useEffect missing dependency warning in Footer.jsx using functional state updater

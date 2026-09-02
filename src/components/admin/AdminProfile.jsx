@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box, Typography, Button, Paper, Grid, TextField, 
-  Switch, CircularProgress, FormControlLabel, Divider
+  CircularProgress
 } from '@mui/material';
 import api from '../../utils/api';
 import { toast } from 'react-toastify';

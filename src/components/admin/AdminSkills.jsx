@@ -3,7 +3,7 @@ import {
   Box, Typography, Button, Table, TableBody, TableCell,
   TableContainer, TableHead, TableRow, Paper, IconButton,
   Dialog, DialogTitle, DialogContent, DialogActions,
-  TextField, Switch, Chip, CircularProgress
+  TextField, Chip, CircularProgress
 } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
 import api from '../../utils/api';
