@@ -112,28 +112,38 @@ const Button = styled.a`
   }
 `;
 
+const Tag = styled.span`
+  font-size: 12px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.primary + '15'};
+  padding: 2px 8px;
+  border-radius: 10px;
+`;
+
 const ProjectCard = ({ project }) => {
   return (
     <Card>
-      <Image src={project.img} />
+      <Image src={project.image} />
 
-      <Tags></Tags>
+      <Tags>
+        {project.tags?.map((tag, index) => (
+          <Tag key={index}>{tag}</Tag>
+        ))}
+      </Tags>
 
       <Details>
-        <Title>{project.role}</Title>
+        <Title>{project.title}</Title>
         <Date>{project.date}</Date>
-        <Description>{project.desc}</Description>
+        <Description>{project.description}</Description>
       </Details>
 
-      <Members>
-        {project.member?.map((member, i) => (
-          <Avatar key={i} src={member.img} />
-        ))}
-      </Members>
+      {/* Adding a flexible spacer if member isn't used anymore */}
+      <div style={{ flex: 1 }}></div>
 
       <ButtonWrapper>
-        <Button href={project.code} target="_blank">View Code</Button>
-        <Button href={project.live} target="_blank">View Live</Button>
+        {project.github && <Button href={project.github} target="_blank">View Code</Button>}
+        {project.webapp && <Button href={project.webapp} target="_blank">View Live</Button>}
       </ButtonWrapper>
     </Card>
   );
