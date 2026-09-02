@@ -1,4 +1,5 @@
-feat: make project categories dynamic
+style: fix hero role text overflow layout
 
-- Refactored `Projects.jsx` to dynamically compute unique categories from the database payload instead of hardcoding them
-- Allowed any new project category (like "c++") added in the Admin Panel to automatically appear as a toggle button in the Projects section
+- Added `flex-wrap: wrap` to `TextLoop` to allow long roles to wrap cleanly
+- Wrapped "I am a" in a nowrap span so it doesn't break into multiple lines when the flex container shrinks
+- Centered the wrapped content nicely on mobile using `justify-content: center`

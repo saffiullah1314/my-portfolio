@@ -94,15 +94,14 @@ const TextLoop = styled.div`
   font-weight: 600;
   font-size: 32px;
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   color: ${({ theme }) => theme.text_primary};
   line-height: 68px;
 
   @media (max-width: 960px) {
     text-align: center;
-  }
-
-  @media (max-width: 960px) {
+    justify-content: center;
     font-size: 22px;
     line-height: 48px;
     margin-bottom: 16px;
@@ -252,7 +251,7 @@ const Hero = () => {
                   Hi, I am <br /> {bio.name}
                 </Title>
                 <TextLoop>
-                  I am a
+                  <span style={{ whiteSpace: 'nowrap' }}>I am a</span>
                   <Span>
                     <Typewriter
                       options={{
