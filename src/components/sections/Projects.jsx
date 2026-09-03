@@ -134,7 +134,16 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const res = await api.get('/projects');
-        setProjects(res.data.data);
+        const fetchedProjects = res.data.data;
+        // Ensure machine learning projects appear first
+        const sortedProjects = fetchedProjects.sort((a, b) => {
+          const aIsML = a.category?.toLowerCase() === 'machine learning';
+          const bIsML = b.category?.toLowerCase() === 'machine learning';
+          if (aIsML && !bIsML) return -1;
+          if (!aIsML && bIsML) return 1;
+          return 0;
+        });
+        setProjects(sortedProjects);
       } catch (error) {
         console.error("Failed to fetch projects", error);
       } finally {
