@@ -6,7 +6,7 @@
 
 ## 🔗 Live Demo
 
-🌐 [View Live Portfolio](https://saffiullah1314.github.io/my-portfolio)
+🌐 [View Live Portfolio](https://my-portfolio-livid-three-wq08nrr1fh.vercel.app/)
 
 ---
 
