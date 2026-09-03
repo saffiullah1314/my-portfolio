@@ -13,8 +13,7 @@ const ProjectSchema = new mongoose.Schema({
     required: [true, 'Please add a description']
   },
   image: {
-    type: String,
-    required: [true, 'Please add a project image']
+    type: String
   },
   tags: {
     type: [String],
