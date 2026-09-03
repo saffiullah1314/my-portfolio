@@ -1,4 +1,5 @@
-feat: add prominent bottom Add buttons to Admin panels
+feat: add github seeder endpoint
 
-- Added secondary, larger "+ Add New" buttons below the data tables in AdminProjects, AdminExperience, AdminEducation, and AdminSkills
-- Improves UX and visibility for mobile users or users who miss the top-right button, especially when tables are empty or very long
+- Created temporary `GET /api/projects/seed-github` endpoint to automatically fetch repositories from the user's GitHub and insert them into the database
+- Safely avoids duplicates by checking existing project names and GitHub URLs
+- Auto-extracts tags, descriptions, category, GitHub links, and Live webapp URLs (from homepage)

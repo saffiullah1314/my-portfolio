@@ -1,11 +1,12 @@
 const express = require('express');
-const { getProjects, getProject, createProject, updateProject, deleteProject } = require('../controllers/projects');
+const { getProjects, getProject, createProject, updateProject, deleteProject, seedGithub } = require('../controllers/projects');
 const { protect } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
 const router = express.Router();
 
 const optionalAuth = require('../middleware/optionalAuth');
+router.route('/seed-github').get(seedGithub);
 
 router.route('/')
   .get(optionalAuth, getProjects)
