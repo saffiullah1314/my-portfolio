@@ -108,12 +108,12 @@ const AdminProfile = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              label="Resume URL (Google Drive / PDF link)" name="resume" value={form.resume}
-              onChange={handleChange} fullWidth
-              InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
-              InputProps={{ style: { color: 'white' } }}
-              sx={{ '& .MuiOutlinedInput-root fieldset': { borderColor: '#444' } }}
+            <ImageUpload 
+              label="Resume URL (Google Drive / Upload PDF)" 
+              name="resume" 
+              value={form.resume} 
+              onChange={handleChange} 
+              accept="application/pdf,image/*"
             />
           </Grid>
           <Grid item xs={12}>

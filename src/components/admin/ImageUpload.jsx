@@ -3,7 +3,7 @@ import { Box, TextField, Button, CircularProgress } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import api from '../../utils/api';
 
-const ImageUpload = ({ label, name, value, onChange, required = false }) => {
+const ImageUpload = ({ label, name, value, onChange, required = false, accept = "image/*" }) => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -50,7 +50,7 @@ const ImageUpload = ({ label, name, value, onChange, required = false }) => {
         onChange={onChange}
         required={required}
         error={!!error}
-        helperText={error || "Paste image URL or upload file"}
+        helperText={error || "Paste URL or upload file"}
         variant="outlined"
       />
       <Button
@@ -64,7 +64,7 @@ const ImageUpload = ({ label, name, value, onChange, required = false }) => {
         <input
           type="file"
           hidden
-          accept="image/*"
+          accept={accept}
           onChange={handleFileUpload}
         />
       </Button>
