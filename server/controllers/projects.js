@@ -116,7 +116,6 @@ exports.seedGithub = async (req, res, next) => {
     const existingNames = existingProjects.map(p => p.title.toLowerCase());
     const existingGithub = existingProjects.map(p => p.github?.toLowerCase()).filter(Boolean);
 
-    const fetch = (await import('node-fetch')).default || globalThis.fetch;
     const response = await fetch('https://api.github.com/users/saffiullah1314/repos?sort=updated&per_page=100');
     const repos = await response.json();
 
